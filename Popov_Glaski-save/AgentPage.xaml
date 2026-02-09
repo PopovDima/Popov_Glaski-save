@@ -15,6 +15,6 @@
     </Page.Resources>
 
     <Grid>
-        <TextBlock Text="Тест" HorizontalAlignment="Center" VerticalAlignment="Center"></TextBlock>
+        <TextBlock Text="Тест123" HorizontalAlignment="Center" VerticalAlignment="Center"></TextBlock>
     </Grid>
 </Page>
