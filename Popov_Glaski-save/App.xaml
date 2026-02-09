@@ -1,0 +1,18 @@
+﻿<Application x:Class="Popov_Glaski_save.App"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:local="clr-namespace:Popov_Glaski_save"
+             StartupUri="MainWindow.xaml">
+    <Application.Resources>
+        <Style TargetType="Button">
+            <Setter Property="Height" Value="36"></Setter>
+            <Setter Property="MinWidth" Value="120"></Setter>
+            <Setter Property="Padding" Value="24 0"></Setter>
+            <Setter Property="FontFamily" Value="Century Gothic"></Setter>
+            <Setter Property="FontWeight" Value="Bold"></Setter>
+            <Setter Property="FontSize" Value="18"></Setter>
+            <Setter Property="Background" Value="#B175EE"></Setter>
+            <Setter Property="Foreground" Value="White"></Setter>
+        </Style>
+    </Application.Resources>
+</Application>
