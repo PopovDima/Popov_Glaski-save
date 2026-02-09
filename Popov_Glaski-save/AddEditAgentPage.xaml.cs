@@ -16,18 +16,13 @@ using System.Windows.Shapes;
 namespace Popov_Glaski_save
 {
     /// <summary>
-    /// Логика взаимодействия для AgentPage.xaml
+    /// Логика взаимодействия для AddEditAgentPage.xaml
     /// </summary>
-    public partial class AgentPage : Page
+    public partial class AddEditAgentPage : Page
     {
-        public AgentPage()
+        public AddEditAgentPage()
         {
             InitializeComponent();
-        }
-
-        private void Button_Click(object sender, RoutedEventArgs e)
-        {
-            Manager.MainFrame.Navigate(new AddEditAgentPage());
         }
     }
 }

@@ -23,9 +23,9 @@
             <Image Source="/res/images/Глазки-save.png" HorizontalAlignment="Left" VerticalAlignment="Center"
                    Margin="10"></Image>
             <Button Name="BtnBack" Content="Назад" HorizontalAlignment="Right" VerticalAlignment="Center"
-                    Margin="14"></Button>
+                    Margin="14" Click="BtnBack_Click" Visibility="Collapsed"></Button>
         </Grid>
 
-        <Frame Name="MainFrame" Grid.Row="1"></Frame>
+        <Frame Name="MainFrame" Grid.Row="1" NavigationUIVisibility="Hidden" ContentRendered="MainFrame_ContentRendered"></Frame>
     </Grid>
 </Window>
