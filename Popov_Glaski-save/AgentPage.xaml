@@ -11,11 +11,121 @@
 
     <Page.Resources>
         <Style TargetType="TextBlock">
-            <Setter Property="FontSize" Value="16"></Setter>
+            <Setter Property="FontSize" Value="18"></Setter>
         </Style>
     </Page.Resources>
 
     <Grid>
-        <Button HorizontalAlignment="Center" VerticalAlignment="Center" Content="Edit" Click="Button_Click"></Button>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="auto"></RowDefinition>
+            <RowDefinition Height="*"></RowDefinition>
+        </Grid.RowDefinitions>
+
+        <StackPanel Name="PanelTop" Margin="16">
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition></ColumnDefinition>
+                    <ColumnDefinition></ColumnDefinition>
+                </Grid.ColumnDefinitions>
+
+                <StackPanel Name="PanelSearch" Grid.Column="0" Margin="0 0 10 0">
+                    <TextBlock Text="Поиск:" Margin="0 0 0 4"></TextBlock>
+                    <TextBox Name="TBoxSearch" TextChanged="TBoxSearch_TextChanged"></TextBox>
+                </StackPanel>
+
+                <Grid Name="GridFilters" Grid.Column="1">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition></ColumnDefinition>
+                        <ColumnDefinition></ColumnDefinition>
+                    </Grid.ColumnDefinitions>
+
+                    <StackPanel Grid.Column="0" Margin="0 0 10 0">
+                        <TextBlock Text="Сортировка:" Margin="0 0 0 4"></TextBlock>
+                        <ComboBox Name="CBoxSort" SelectionChanged="CBoxSort_SelectionChanged">
+                            <ComboBoxItem>По наименованию по возрастанию</ComboBoxItem>
+                            <ComboBoxItem>По наименованию по убыванию</ComboBoxItem>
+                            <Separator BorderThickness="1" BorderBrush="LightGray"></Separator>
+                            <ComboBoxItem>По скидке по возрастанию</ComboBoxItem>
+                            <ComboBoxItem>По скидке по убыванию</ComboBoxItem>
+                            <Separator BorderThickness="1" BorderBrush="LightGray"></Separator>
+                            <ComboBoxItem>По приоритету по возрастанию</ComboBoxItem>
+                            <ComboBoxItem>По приоритету по убыванию</ComboBoxItem>
+                        </ComboBox>
+                    </StackPanel>
+
+                    <StackPanel Grid.Column="1">
+                        <TextBlock Text="Фильтрация:" Margin="0 0 0 4"></TextBlock>
+                        <ComboBox Name="CBoxFilter" SelectionChanged="CBoxFilter_SelectionChanged"></ComboBox>
+                    </StackPanel>
+                </Grid>
+            </Grid>
+        </StackPanel>
+
+        <ListView Name="ListViewAgents" Grid.Row="1" VirtualizingPanel.ScrollUnit="Pixel"
+                  ScrollViewer.HorizontalScrollBarVisibility="Disabled">
+            <ListView.ItemContainerStyle>
+                <Style TargetType="ListViewItem">
+                    <Setter Property="HorizontalContentAlignment" Value="Stretch"></Setter>
+                    <Setter Property="Padding" Value="0"></Setter>
+                </Style>
+            </ListView.ItemContainerStyle>
+            
+            <ListView.ItemTemplate>
+                <DataTemplate>
+                    <Border Padding="14" Margin="12 8" BorderThickness="1" BorderBrush="Black">
+                        <Grid ShowGridLines="False">
+                            <Grid.Resources>
+                                <Style TargetType="TextBlock">
+                                    <Setter Property="FontSize" Value="16"></Setter>
+                                </Style>
+                            </Grid.Resources>
+                        
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="auto"></ColumnDefinition>
+                                <ColumnDefinition Width="*"></ColumnDefinition>
+                                <ColumnDefinition Width="auto"></ColumnDefinition>
+                            </Grid.ColumnDefinitions>
+
+                            <Image Width="160" Stretch="Uniform" Grid.Column="0" Margin="0 0 16 0">
+                                <Image.Source>
+                                    <Binding Path="LogoPath">
+                                        <Binding.TargetNullValue>
+                                            <ImageSource>/res/images/picture.png</ImageSource>
+                                        </Binding.TargetNullValue>
+                                    </Binding>
+                                </Image.Source>
+                            </Image>
+
+                            <StackPanel Name="GridAllAgentInfo" Grid.Column="1">
+                                <TextBlock Name="TBlockAgentTypeAndName" FontSize="22" FontWeight="Bold"
+                                           Margin="0 0 0 8" TextWrapping="WrapWithOverflow">
+                                    <TextBlock.Text>
+                                        <MultiBinding StringFormat="{}{0} | {1}">
+                                            <Binding Path="AgentType.Title"></Binding>
+                                            <Binding Path="Title"></Binding>
+                                        </MultiBinding>
+                                    </TextBlock.Text>
+                                </TextBlock>
+
+                                <StackPanel Name="PanelAgentInfo">
+                                    <TextBlock Name="TBlockAgentTotalSalesUnits" Margin="0 0 0 2"
+                                               Text="{Binding TotalSalesUnits, StringFormat={}{0} продаж}"></TextBlock>
+                                    <TextBlock Name="TBlockAgentPhone" Margin="0 0 0 2"
+                                               Text="{Binding Phone}"></TextBlock>
+                                    <TextBlock Name="TBlockAgentPriority" Margin="0 0 0 2"
+                                               Text="{Binding Priority, StringFormat={}Приоритетность: {0}}"></TextBlock>
+                                </StackPanel>
+                            </StackPanel>
+
+                            <StackPanel Name="PanelAgentDiscount" Grid.Column="2" VerticalAlignment="Center"
+                                        Margin="20 0">
+                                <TextBlock Name="TBlockAgentDiscount" FontSize="30"
+                                           Text="{Binding Discount, StringFormat={}{0}%}"></TextBlock>
+                            </StackPanel>
+                        </Grid>
+                    </Border>
+                </DataTemplate>
+            </ListView.ItemTemplate>
+        </ListView>
     </Grid>
 </Page>

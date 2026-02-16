@@ -5,6 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Popov_Glaski_save"
         mc:Ignorable="d"
+        WindowState="Maximized"
         FontFamily="Century Gothic"
         Icon="/res/images/Глазки-save.ico"
         Title="Глазки-save" Height="450" Width="800" MinHeight="450" MinWidth="800">
@@ -18,7 +19,7 @@
         </Grid.RowDefinitions>
 
         <Grid Name="GridTop" Background="#FFE9F9">
-            <TextBlock Text="Глазки-save" HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="32"
+            <TextBlock Text="Глазки-save" HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="34"
                        FontWeight="Medium"></TextBlock>
             <Image Source="/res/images/Глазки-save.png" HorizontalAlignment="Left" VerticalAlignment="Center"
                    Margin="10"></Image>

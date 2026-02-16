@@ -14,5 +14,12 @@
             <Setter Property="Background" Value="#B175EE"></Setter>
             <Setter Property="Foreground" Value="White"></Setter>
         </Style>
+        <Style TargetType="TextBox">
+            <Setter Property="FontSize" Value="18"></Setter>
+            <Setter Property="Padding" Value="2"></Setter>
+        </Style>
+        <Style TargetType="ComboBox">
+            <Setter Property="FontSize" Value="18"></Setter>
+        </Style>
     </Application.Resources>
 </Application>
