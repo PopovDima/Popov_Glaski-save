@@ -24,6 +24,11 @@ namespace Popov_Glaski_save
     public partial class AgentPage : Page
     {
         private Popov_GlaskiSaveEntities _context;
+
+        private List<Agent> _filteredAgents;
+        private int pageSize = 10;
+        private int currentPage = 1;
+
         public AgentPage()
         {
             InitializeComponent();
@@ -45,6 +50,8 @@ namespace Popov_Glaski_save
         private void UpdateAgents()
         {
             var currentAgents = _context.Agent.ToList();
+
+            int totalNumAgents = currentAgents.Count;
 
             string searchText = TBoxSearch.Text.ToLower();
             string clearSearchText = new string(searchText.Where(char.IsDigit).ToArray());
@@ -88,12 +95,33 @@ namespace Popov_Glaski_save
                 }
             }
 
-            ListViewAgents.ItemsSource = currentAgents;
+            int currentNumAgents = currentAgents.Count;
+
+            TBlockNumRecords.Text = $"{currentNumAgents} из {totalNumAgents}";
+
+            _filteredAgents = currentAgents;
+            currentPage = 1;
+            ChangePage();
         }
 
-        private void Button_Click(object sender, RoutedEventArgs e)
+        private void ChangePage()
         {
-            Manager.MainFrame.Navigate(new AddEditAgentPage());
+            LBoxPages.Items.Clear();
+
+            int totalPages = (_filteredAgents.Count + pageSize - 1) / pageSize;
+
+            for (int i = 1; i <= totalPages; i++)
+            {
+                LBoxPages.Items.Add(i);
+            }
+
+            LBoxPages.SelectedItem = currentPage;
+
+            var agentsPage = _filteredAgents
+                .Skip((currentPage - 1) * pageSize)
+                .Take(pageSize).ToList();
+
+            ListViewAgents.ItemsSource = agentsPage;
         }
 
         private void TBoxSearch_TextChanged(object sender, TextChangedEventArgs e)
@@ -109,6 +137,35 @@ namespace Popov_Glaski_save
         private void CBoxFilter_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             UpdateAgents();
+        }
+
+        private void BtnPrevPage_Click(object sender, RoutedEventArgs e)
+        {
+            int totalPages = (_filteredAgents.Count + pageSize - 1) / pageSize;
+            if (currentPage > 1)
+            {
+                currentPage--;
+                ChangePage();
+            }
+        }
+
+        private void BtnNextPage_Click(object sender, RoutedEventArgs e)
+        {
+            int totalPages = (_filteredAgents.Count + pageSize - 1) / pageSize;
+            if (currentPage < totalPages)
+            {
+                currentPage++;
+                ChangePage();
+            }
+        }
+
+        private void LBoxPages_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            if (LBoxPages.SelectedItem is int page && page != currentPage)
+            {
+                currentPage = page;
+                ChangePage();
+            }
         }
     }
 }
