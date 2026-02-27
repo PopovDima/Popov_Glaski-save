@@ -19,14 +19,6 @@ namespace Popov_Glaski_save.database
         public int ProductID { get; set; }
         public System.DateTime SaleDate { get; set; }
         public int ProductCount { get; set; }
-
-        public decimal TotalCost
-        {
-            get
-            {
-                return Product.MinCostForAgent * ProductCount;
-            }
-        }
     
         public virtual Agent Agent { get; set; }
         public virtual Product Product { get; set; }

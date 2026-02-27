@@ -19,18 +19,6 @@ namespace Popov_Glaski_save.database
             : base("name=Popov_GlaskiSaveEntities")
         {
         }
-
-        private static Popov_GlaskiSaveEntities _context;
-
-        public static Popov_GlaskiSaveEntities GetContext()
-        {
-            if (_context == null)
-            {
-                _context = new Popov_GlaskiSaveEntities();
-            }
-
-            return _context;
-        }
     
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {

@@ -1,7 +1,9 @@
 ﻿using Popov_Glaski_save.database;
+using Popov_Glaski_save.services;
 
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Text.RegularExpressions;
@@ -14,7 +16,6 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
-using System.Windows.Shapes;
 
 namespace Popov_Glaski_save
 {
@@ -24,6 +25,7 @@ namespace Popov_Glaski_save
     public partial class AgentPage : Page
     {
         private Popov_GlaskiSaveEntities _context;
+        private MessageService _messageService = new MessageService();
 
         private List<Agent> _filteredAgents;
         private int pageSize = 10;
@@ -166,6 +168,83 @@ namespace Popov_Glaski_save
                 currentPage = page;
                 ChangePage();
             }
+        }
+
+        private async void MenuItem_Click(object sender, RoutedEventArgs e)
+        {
+            if (sender is MenuItem menuItem && menuItem.DataContext is Agent agent)
+            {
+                var addEditAgentWindow = new AddEditAgentWindow(agent);
+
+                string oldShortRelativeLogoPath = agent.Logo;
+
+                try
+                {
+                    if (addEditAgentWindow.ShowDialog() == true)
+                    {
+                        _context.SaveChanges();
+
+                        UpdateAgents();
+
+                        await Task.Delay(500);
+                        GC.Collect();
+                        await Task.Delay(200);
+
+                        string absoluteLogoPath = "";
+                        if (!string.IsNullOrEmpty(oldShortRelativeLogoPath))
+                        {
+                            absoluteLogoPath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "res", "images", oldShortRelativeLogoPath.TrimStart('/'));
+                            DeletePrevLogo(absoluteLogoPath);
+                        }
+                    }
+                    else
+                    {
+                        _context.Entry(agent).Reload();
+                        UpdateAgents();
+                    }
+                }
+                catch (Exception ex)
+                {
+                    _messageService.ShowError($"Ошибка сохранения информации.\n\n{ex.Message}");
+                }
+            }
+        }
+
+        private void DeletePrevLogo(string absolutePath)
+        {
+            string shortRelativePath = $"/agents/{Path.GetFileName(absolutePath)}";
+
+            try
+            {
+                if (!_context.Agent.Any(a => a.Logo == shortRelativePath))
+                {
+                    File.Delete(absolutePath);
+                    _messageService.ShowInfo($"Предыдущий логотип \"{Path.GetFileName(absolutePath)}\" успешно удалён.");
+                }
+            }
+            catch (Exception ex)
+            {
+                _messageService.ShowError($"Ошибка удаления предыдущего логотипа.\n\n{ex.Message}");
+            }
+        }
+
+        private void BtnAddAgent_Click(object sender, RoutedEventArgs e)
+        {
+            var AddEditAgentWindow = new AddEditAgentWindow(null);
+
+            try
+            {
+                if (AddEditAgentWindow.ShowDialog() == true)
+                {
+                    _context.SaveChanges();
+                }
+            }
+            catch (Exception ex)
+            {
+                _messageService.ShowError($"Ошибка добавления нового агента.\n\n{ex.Message}");
+            }
+
+            UpdateAgents();
         }
     }
 }
