@@ -143,7 +143,6 @@ namespace Popov_Glaski_save
 
         private void BtnPrevPage_Click(object sender, RoutedEventArgs e)
         {
-            int totalPages = (_filteredAgents.Count + pageSize - 1) / pageSize;
             if (currentPage > 1)
             {
                 currentPage--;
@@ -245,6 +244,48 @@ namespace Popov_Glaski_save
             }
 
             UpdateAgents();
+        }
+
+        private void ListViewAgents_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            if (ListViewAgents.SelectedItems.Count is int count && count > 1)
+            {
+                PanelEditPriority.Visibility = Visibility.Visible;
+                TBlockNumSelected.Text = $"Выделено агентов: {count}";
+            }
+            else
+            {
+                PanelEditPriority.Visibility = Visibility.Collapsed;
+            }
+        }
+
+        private void BtnEditAgentPriority_Click(object sender, RoutedEventArgs e)
+        {
+            var selectedAgents = ListViewAgents.SelectedItems.Cast<Agent>().ToList();
+            int maxPriority = selectedAgents.Max(a => a.Priority);
+
+            var editAgentPriorityWindow = new EditAgentPriorityWindow(maxPriority);
+
+            try
+            {
+                if (editAgentPriorityWindow.ShowDialog() == true)
+                {
+                    int newPriority = editAgentPriorityWindow.Priority;
+
+                    foreach (Agent agent in selectedAgents)
+                    {
+                        agent.Priority = newPriority;
+                    }
+
+                    _context.SaveChanges();
+
+                    UpdateAgents();
+                }
+            }
+            catch (Exception ex)
+            {
+                _messageService.ShowError($"Ошибка изменения приоритета.\n\n{ex.Message}");
+            }
         }
     }
 }

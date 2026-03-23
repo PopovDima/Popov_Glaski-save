@@ -100,6 +100,9 @@
     <Compile Include="database\AgentPriorityHistory.cs">
       <DependentUpon>PopovModel.tt</DependentUpon>
     </Compile>
+    <Compile Include="AgentSalesHistoryWindow.xaml.cs">
+      <DependentUpon>AgentSalesHistoryWindow.xaml</DependentUpon>
+    </Compile>
     <Compile Include="database\AgentType.cs">
       <DependentUpon>PopovModel.tt</DependentUpon>
     </Compile>
@@ -146,6 +149,9 @@
     <Compile Include="database\Temp.cs">
       <DependentUpon>PopovModel.tt</DependentUpon>
     </Compile>
+    <Compile Include="EditAgentPriorityWindow.xaml.cs">
+      <DependentUpon>EditAgentPriorityWindow.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Properties\Resources.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -157,6 +163,14 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="AgentPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="AgentSalesHistoryWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="EditAgentPriorityWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

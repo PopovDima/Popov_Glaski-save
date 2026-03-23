@@ -21,5 +21,12 @@
         <Style TargetType="ComboBox">
             <Setter Property="FontSize" Value="18"></Setter>
         </Style>
+        <Style TargetType="DatePicker">
+            <Style.Resources>
+                <Style TargetType="Button"></Style>
+            </Style.Resources>
+            <Setter Property="FontSize" Value="18"></Setter>
+            <Setter Property="Padding" Value="2 2 2 0"></Setter>
+        </Style>
     </Application.Resources>
 </Application>

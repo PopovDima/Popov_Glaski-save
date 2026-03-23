@@ -17,6 +17,7 @@ namespace Popov_Glaski_save.database
                 return new string(Phone.Where(char.IsDigit).ToArray());
             }
         }
+
         public string LogoPath
         {
             get
@@ -29,6 +30,7 @@ namespace Popov_Glaski_save.database
                 return new Uri(Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "res", "images", Logo.TrimStart('/'))).AbsoluteUri;
             }
         }
+
         public int TotalSalesUnits
         {
             get
@@ -48,6 +50,7 @@ namespace Popov_Glaski_save.database
                 return totalSales;
             }
         }
+
         public decimal TotalSalesAmount
         {
             get
@@ -55,6 +58,7 @@ namespace Popov_Glaski_save.database
                 return ProductSale.Sum(ps => ps.TotalCost);
             }
         }
+
         public int Discount
         {
             get
@@ -69,6 +73,21 @@ namespace Popov_Glaski_save.database
                     return 20;
                 else
                     return 25;
+            }
+        }
+
+        public Brush BackgroundDiscount
+        {
+            get
+            {
+                if (Discount >= 25)
+                {
+                    return Brushes.LightGreen;
+                }
+                else
+                {
+                    return null;
+                }
             }
         }
     }

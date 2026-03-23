@@ -102,12 +102,9 @@ namespace Popov_Glaski_save
             {
                 errors.AppendLine("Укажите приоритет");
             }
-            else
+            else if (!int.TryParse(TBoxAgentPriority.Text, out int priority) || priority < 0)
             {
-                if (!int.TryParse(TBoxAgentPriority.Text, out int priority) || priority < 0)
-                {
-                    errors.AppendLine("Приоритет должен быть целым неотрицательным числом");
-                }
+                errors.AppendLine("Приоритет должен быть целым неотрицательным числом");
             }
 
             if (string.IsNullOrWhiteSpace(TBoxAgentDirectorName.Text))
@@ -247,6 +244,13 @@ namespace Popov_Glaski_save
 
                 SetupUI();
             }
+        }
+
+        private void BtnAgentProductSalesHistory_Click(object sender, RoutedEventArgs e)
+        {
+            var agentSalesHistoryWindow = new AgentSalesHistoryWindow(_currentAgent);
+
+            agentSalesHistoryWindow.ShowDialog();
         }
     }
 }

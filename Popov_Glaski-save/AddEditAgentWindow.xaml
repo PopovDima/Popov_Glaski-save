@@ -130,14 +130,16 @@
                     <ColumnDefinition Width="auto"></ColumnDefinition>
                     <ColumnDefinition></ColumnDefinition>
                 </Grid.ColumnDefinitions>
-                <Button Name="BtnAgentDelete" Content="Удалить агента" FontWeight="Normal" Background="{x:Null}" Foreground="Red" 
-                        BorderBrush="Red" HorizontalAlignment="Left" VerticalAlignment="Center"
-                        Click="BtnAgentDelete_Click"></Button>
-                <StackPanel Orientation="Horizontal" Grid.Column="1" HorizontalAlignment="Center">
-                    <Button Name="BtnSave" Content="Сохранить"
-                            Click="BtnSave_Click"></Button>
-                    <Border Width="192"></Border>
+                <StackPanel Orientation="Horizontal">
+                    <Button Name="BtnAgentDelete" Content="Удалить агента" FontWeight="Normal" Background="{x:Null}" Foreground="Red" 
+                            BorderBrush="Red" HorizontalAlignment="Left" VerticalAlignment="Center"
+                            Click="BtnAgentDelete_Click" Margin="0 0 10 0"></Button>
+                    <Button Name="BtnAgentProductSalesHistory" Content="История продаж" FontWeight="Normal" Background="{x:Null}" Foreground="Black"
+                            HorizontalAlignment="Left" VerticalAlignment="Center"
+                            Click="BtnAgentProductSalesHistory_Click"></Button>
                 </StackPanel>
+                <Button Name="BtnSave" Content="Сохранить" Grid.Column="1"
+                        Click="BtnSave_Click" HorizontalAlignment="Right"></Button>
             </Grid>
         </StackPanel>
     </Grid>
